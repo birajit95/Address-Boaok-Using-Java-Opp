@@ -83,9 +83,14 @@ public class AddressBook{
              addressBook.addAddress(addressBook.getPerson());
              break;
            }
-
-          
       }
+  }
+  
+  public static void showAllRecords(){
+    System.out.println(" - All records are listed bellow - ");
+    for (AddressBook addressBook : addBookList) {
+        System.out.println(addressBook.getPerson().getPersonDetails());
+    }
   }
  
   public static void main(String []args){
@@ -110,8 +115,10 @@ public class AddressBook{
               break;
         case 2:
               AddressBook.updateRecord();
-              break;      
-        
+              break;           
+        case 5:    
+              AddressBook.showAllRecords();
+              break;
         default:
                inputResponse.close();
                System.exit(0);
