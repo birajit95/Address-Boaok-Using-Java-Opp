@@ -88,20 +88,8 @@ public class AddressBook{
 
       switch(response){
         case 1:
-              
               AddressBook addressbook = new AddressBook();
               addressbook.addRecord(inputResponse);
-              // addressbook.addPerson();
-
-              // System.out.print("Want to skip for now? Y/N : ");
-              // String skipStatus = inputResponse.next();
-
-              // if(skipStatus.equals("N")){
-              //   Person personObj = addressbook.getPerson();
-              //   addressbook.addPhoneNumber(personObj);
-              //   addressbook.addAddress(personObj);
-              //   addBookList.add(addressbook);
-              // }
               break;
 
         default:
