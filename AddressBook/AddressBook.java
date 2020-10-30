@@ -56,7 +56,20 @@ public class AddressBook{
     }
 
     
-  
+  public void addRecord(Scanner inputResponse){
+   
+    this.addPerson();
+
+    System.out.print("Want to skip for now? Y/N : ");
+    String skipStatus = inputResponse.next();
+
+    if(skipStatus.equals("N")){
+      Person personObj = this.getPerson();
+      this.addPhoneNumber(personObj);
+      this.addAddress(personObj);
+      addBookList.add(this);
+    }
+  }
  
   public static void main(String []args){
     welcomeMessage();
@@ -75,33 +88,34 @@ public class AddressBook{
 
       switch(response){
         case 1:
+              
               AddressBook addressbook = new AddressBook();
-              addressbook.addPerson();
-              addBookList.add(addressbook);
+              addressbook.addRecord(inputResponse);
+              // addressbook.addPerson();
 
-              Person personObj = addBookList.get(0).getPerson();
-      
+              // System.out.print("Want to skip for now? Y/N : ");
+              // String skipStatus = inputResponse.next();
 
-              addBookList.get(0).addPhoneNumber(personObj);
-              addBookList.get(0).addAddress(personObj);
+              // if(skipStatus.equals("N")){
+              //   Person personObj = addressbook.getPerson();
+              //   addressbook.addPhoneNumber(personObj);
+              //   addressbook.addAddress(personObj);
+              //   addBookList.add(addressbook);
+              // }
               break;
+
         default:
+               inputResponse.close();
                System.exit(0);
                break;
 
         }
 
+
+
       }
     
-    // for (AddressBook addressBook: addBookList) {
-
-    // System.out.println(addressBook.getPerson().getPersonDetails());
-      
-    // }
     
-    // System.out.println(addBookList.get(0).getPerson().getPersonDetails());
-    
-
     
 
   }
