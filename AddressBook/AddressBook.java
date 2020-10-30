@@ -67,8 +67,25 @@ public class AddressBook{
       Person personObj = this.getPerson();
       this.addPhoneNumber(personObj);
       this.addAddress(personObj);
-      addBookList.add(this);
     }
+    addBookList.add(this);
+  }
+
+  public static void updateRecord(){
+      Scanner inputResponse=new Scanner(System.in);
+      System.out.print("Enter the Full Name: ");
+      String fullName=inputResponse.nextLine();
+      
+      for (AddressBook addressBook : addBookList) {
+           if(addressBook.getPerson().getFullName().equals(fullName)){
+             System.out.println("Record updation for "+addressBook.getPerson().getFullName());
+             addressBook.addPhoneNumber(addressBook.getPerson());
+             addressBook.addAddress(addressBook.getPerson());
+             break;
+           }
+
+          
+      }
   }
  
   public static void main(String []args){
@@ -91,21 +108,18 @@ public class AddressBook{
               AddressBook addressbook = new AddressBook();
               addressbook.addRecord(inputResponse);
               break;
-
+        case 2:
+              AddressBook.updateRecord();
+              break;      
+        
         default:
                inputResponse.close();
                System.exit(0);
                break;
 
-        }
-
-
+      }
 
       }
-    
-    
-    
-
   }
 }
 
@@ -128,13 +142,24 @@ class Person{
   
   @Override
   public String toString(){
-        return String.format(this.firstName+" "+this.lastName+", "+this.phoneNumber+", "+this.address.getAddress());
+        return String.format(this.getFullName()+", "+this.phoneNumber+", "+this.address.getAddress());
   }
 
   public String getPersonDetails(){
         return this.toString();
   }
 
+  public String getFullName(){
+        return String.format(this.firstName+" "+this.lastName);
+  }
+
+  public String firstName(){
+       return this.firstName;
+    }
+
+  public String lastName(){
+       return this.lastName;
+   }   
 
 }
 
