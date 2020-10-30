@@ -60,18 +60,38 @@ public class AddressBook{
  
   public static void main(String []args){
     welcomeMessage();
-    // while(true){
-      
-      AddressBook addressbook = new AddressBook();
-      addressbook.addPerson();
-      addBookList.add(addressbook);
+    Scanner inputResponse=new Scanner(System.in);
+    while(true){
 
-      Person personObj = addBookList.get(0).getPerson();
+      System.out.println("1. Add Record");
+      System.out.println("2. Update Record");
+      System.out.println("3. Delete Record");
+      System.out.println("4. Person Details");
+      System.out.println("5. All Records ");
+      System.out.println("6. exit ");
+
+      System.out.print("Choose Your Option: ");
+      int response = inputResponse.nextInt();
+
+      switch(response){
+        case 1:
+              AddressBook addressbook = new AddressBook();
+              addressbook.addPerson();
+              addBookList.add(addressbook);
+
+              Person personObj = addBookList.get(0).getPerson();
       
 
-      addBookList.get(0).addPhoneNumber(personObj);
-      addBookList.get(0).addAddress(personObj);
-    // }
+              addBookList.get(0).addPhoneNumber(personObj);
+              addBookList.get(0).addAddress(personObj);
+              break;
+        default:
+               System.exit(0);
+               break;
+
+        }
+
+      }
     
     // for (AddressBook addressBook: addBookList) {
 
