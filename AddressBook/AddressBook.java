@@ -1,5 +1,7 @@
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Scanner;
+
 
 public class AddressBook{
     
@@ -7,21 +9,27 @@ public class AddressBook{
     Scanner phoneSc = new Scanner(System.in);
     Scanner addressSc = new Scanner(System.in);
 
-
+    private Person person;
+    static final ArrayList<AddressBook> addBookList = new ArrayList<>();
 
     public static void welcomeMessage(){
       System.out.println(" Welcome to Address Book--The time is "+LocalTime.now());
     }
-
-    public Person addPerson(){
+     
+    public void addPerson(){
            System.out.print("Enter First Name: ");
            String firstName = nameSc.nextLine();
            System.out.print("Enter Last Name: ");
            String lastName=nameSc.nextLine();
            
            Person personObj = new Person(firstName,lastName);
-           return personObj;
+           this.person=personObj;
       }
+    
+      public Person getPerson(){
+         return this.person;
+      }
+      
     public void addPhoneNumber(Person personObj){
       System.out.print("Enter Phone Number: ");
       long phoneNumber = phoneSc.nextLong();
@@ -47,20 +55,39 @@ public class AddressBook{
       personObj.setAddress(addressObj);
     }
 
-    public static void main(String []args){
-      
+    
+  
+ 
+  public static void main(String []args){
     welcomeMessage();
-    AddressBook addNew = new AddressBook();
-    Person personObj = addNew.addPerson();
-    addNew.addPhoneNumber(personObj);
-    addNew.addAddress(personObj);
-    System.out.println(personObj.getPersonDetails());
+    // while(true){
+      
+      AddressBook addressbook = new AddressBook();
+      addressbook.addPerson();
+      addBookList.add(addressbook);
 
+      Person personObj = addBookList.get(0).getPerson();
+      
+
+      addBookList.get(0).addPhoneNumber(personObj);
+      addBookList.get(0).addAddress(personObj);
+    // }
+    
+    // for (AddressBook addressBook: addBookList) {
+
+    // System.out.println(addressBook.getPerson().getPersonDetails());
+      
+    // }
+    
+    // System.out.println(addBookList.get(0).getPerson().getPersonDetails());
+    
 
     
 
+  }
 }
-}
+
+
 class Person{
   private String firstName, lastName;
   private Address address;
