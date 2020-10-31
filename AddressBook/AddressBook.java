@@ -28,7 +28,13 @@ public class AddressBook{
            Person personObj = new Person(firstName,lastName);
            this.person=personObj;
       }
-    
+    public void updatePersonName(Person personObj){
+           System.out.print("Enter First Name: ");
+           String firstName = nameSc.nextLine();
+           System.out.print("Enter Last Name: ");
+           String lastName=nameSc.nextLine();
+           personObj.setName(firstName,lastName);
+     }
     public Person getPerson(){
          return this.person;
       }
@@ -82,12 +88,17 @@ public class AddressBook{
 
   public static void updateRecord(){
       Scanner inputResponse=new Scanner(System.in);
-      System.out.print("Enter the Full Name: ");
-      String fullName=inputResponse.nextLine();
+      System.out.print("Enter the record ID: ");
+      int recordId=inputResponse.nextInt();
       
       for (AddressBook addressBook : addBookList) {
-           if(addressBook.getPerson().getFullName().equals(fullName)){
+           if(addressBook.getRecordId()==recordId){
              System.out.println("Record updation for "+addressBook.getPerson().getFullName());
+             System.out.print("Need to update the name also? 1=Yes/2=No: ");
+             int status=inputResponse.nextInt();
+             if(status==1){
+               addressBook.updatePersonName(addressBook.getPerson());
+             }
              addressBook.addPhoneNumber(addressBook.getPerson());
              addressBook.addAddress(addressBook.getPerson());
              break;
@@ -98,7 +109,7 @@ public class AddressBook{
  
   public static void personDetails(){
     Scanner scObj = new Scanner(System.in);
-    System.out.println("Enter First Name: ");
+    System.out.print("Enter First Name: ");
     String firstName=scObj.nextLine();
     for (AddressBook addressBook : addBookList) {
         if(addressBook.getPerson().firstName().equals(firstName)){
@@ -180,8 +191,11 @@ class Person{
         }
   public void setPhoneNumber(long phoneNumber){
         this.phoneNumber=phoneNumber;
-  }
-  
+        }
+  public void setName(String firstName, String lastName) {
+             this.firstName=firstName;
+             this.lastName=lastName;
+        }
   @Override
   public String toString(){
         return String.format(this.getFullName()+", "+this.phoneNumber+", "+this.address.getAddress());
