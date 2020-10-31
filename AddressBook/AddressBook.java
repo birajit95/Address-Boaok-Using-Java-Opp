@@ -1,6 +1,7 @@
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.regex.*;
 
 
 public class AddressBook{
@@ -18,21 +19,40 @@ public class AddressBook{
     public static void welcomeMessage(){
       System.out.println(" Welcome to Address Book--The time is "+LocalTime.now());
     }
-     
+    
+    public static String userInputValidation(String pattern , String inputTitle ){
+         Scanner nameSc = new Scanner(System.in);
+         String userInput;
+         while(true){
+                 System.out.print("Enter "+inputTitle+": ");
+                 userInput = nameSc.nextLine();
+                 if(Pattern.matches(pattern,String.valueOf(userInput))){
+                   break;
+                  }
+
+                 else if(inputTitle.equals("Phone Number") || inputTitle.equals("ZIP")){
+                        System.out.println("Opps!" + " Invalid "+ inputTitle);
+                 }
+                 else{
+                   System.out.println("Opps! " + inputTitle + " should start with Capital letter and"+
+                    " should not contain any space!");
+                 }
+           }
+           return userInput;
+    }
     public void addPerson(){
-           System.out.print("Enter First Name: ");
-           String firstName = nameSc.nextLine();
-           System.out.print("Enter Last Name: ");
-           String lastName=nameSc.nextLine();
+           String pattern="^[A-Z][a-zA-Z]+$";
+           String firstName = AddressBook.userInputValidation(pattern,"First Name");
+           String lastName = AddressBook.userInputValidation(pattern,"Last Name");
            
            Person personObj = new Person(firstName,lastName);
            this.person=personObj;
       }
     public void updatePersonName(Person personObj){
-           System.out.print("Enter First Name: ");
-           String firstName = nameSc.nextLine();
-           System.out.print("Enter Last Name: ");
-           String lastName=nameSc.nextLine();
+
+           String pattern="^[A-Z][a-zA-Z]+$";
+           String firstName = AddressBook.userInputValidation(pattern,"First Name");
+           String lastName = AddressBook.userInputValidation(pattern,"Last Name");
            personObj.setName(firstName,lastName);
      }
     public Person getPerson(){
@@ -43,25 +63,18 @@ public class AddressBook{
     }  
       
     public void addPhoneNumber(Person personObj){
-      System.out.print("Enter Phone Number: ");
-      long phoneNumber = phoneSc.nextLong();
-
+      String pattern="^(\\+91|91|0)?([6-9]{1}[0-9]{9})$";
+      String phoneNumber = AddressBook.userInputValidation(pattern,"Phone Number");
       personObj.setPhoneNumber(phoneNumber);
     }
 
     public void addAddress(Person personObj){
-
-      System.out.print("Enter Address: ");
-      String address=addressSc.nextLine();
-
-      System.out.print("Enter City: ");
-      String city=addressSc.nextLine();
-
-      System.out.print("Enter State: ");
-      String state=addressSc.nextLine();
-
-      System.out.print("Enter Zip Code: ");
-      int zip=addressSc.nextInt();
+      String pattern="^[A-Z][a-zA-Z]+$";
+      String zipPattern="^[1-9]{1}[0-9]{2}(-| |)[0-9]{3}$";
+      String address = AddressBook.userInputValidation(pattern,"Address");
+      String city = AddressBook.userInputValidation(pattern,"City");
+      String state = AddressBook.userInputValidation(pattern,"State");
+      String zip = AddressBook.userInputValidation(zipPattern,"ZIP");
 
       Address addressObj = new Address(address,city,state,zip);
       personObj.setAddress(addressObj);
@@ -74,10 +87,10 @@ public class AddressBook{
     this.recordId=AddressBook.recordCounter;
     AddressBook.recordCounter++;
 
-    System.out.print("Want to skip for now? Y/N : ");
+    System.out.print("Want to skip for now? y/n : ");
     String skipStatus = inputResponse.next();
 
-    if(skipStatus.equals("N")){
+    if(skipStatus.equals("n")){
       Person personObj = this.getPerson();
       this.addPhoneNumber(personObj);
       this.addAddress(personObj);
@@ -126,7 +139,7 @@ public class AddressBook{
   }
   
   public static void showAllRecords(){
-    System.out.println(" - All records are listed bellow - ");
+    System.out.println(" - All records are listed bellow - \n");
     for (AddressBook addressBook : addBookList) {
         try{
         System.out.println(addressBook.getRecordId()+" "+addressBook.getPerson().getPersonDetails());
@@ -177,7 +190,7 @@ public class AddressBook{
     Scanner inputResponse=new Scanner(System.in);
     while(true){
 
-      System.out.println("1. Add Record");
+      System.out.println("\n\n1. Add Record");
       System.out.println("2. Update Record");
       System.out.println("3. Delete Record");
       System.out.println("4. Person Details");
@@ -186,7 +199,8 @@ public class AddressBook{
 
       System.out.print("Choose Your Option: ");
       int response = inputResponse.nextInt();
-
+      System.out.print("\n\n");
+      
       switch(response){
         case 1:
               AddressBook addressbook = new AddressBook();
@@ -221,9 +235,9 @@ public class AddressBook{
 
 
 class Person{
-  private String firstName, lastName;
+  private String firstName, lastName, phoneNumber;
   private Address address;
-  private long phoneNumber;
+ 
 
   public Person(String firstName, String lastName){
           this.firstName=firstName;
@@ -232,7 +246,7 @@ class Person{
   public void setAddress(Address address){
            this.address=address;
         }
-  public void setPhoneNumber(long phoneNumber){
+  public void setPhoneNumber(String phoneNumber){
         this.phoneNumber=phoneNumber;
         }
   public void setName(String firstName, String lastName) {
@@ -264,9 +278,8 @@ class Person{
 
 
 class Address{
-  private String address, city, state;
-  private int zip;
-  public Address(String address, String city, String state, int zip){
+  private String address, city, state, zip;
+  public Address(String address, String city, String state, String zip){
         this.address=address;
         this.city=city;
         this.state=state;
