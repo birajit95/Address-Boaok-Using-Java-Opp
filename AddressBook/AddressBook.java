@@ -1,7 +1,9 @@
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Scanner;
 import java.util.regex.*;
+import java.util.Collections;
 
 
 public class AddressBook{
@@ -189,6 +191,21 @@ public class AddressBook{
        }  
        
   }
+
+
+  public static void sortByFirstName(){
+    Collections.sort(addBookList, new FirstNameComparator());
+    System.out.println("\n----List Sorted by First Name-----\n");
+    for (AddressBook addressBook : addBookList) {
+      try{
+      System.out.println(addressBook.getRecordId()+" "+addressBook.getPerson().getPersonDetails());
+      }
+      catch(NullPointerException e){
+      System.out.println(addressBook.getRecordId()+" "+addressBook.getPerson().getFullName()+" --- "+" --- "+" --- "+" --- "+" --- ");
+      }
+  }
+
+  }
    public static void main(String []args){
     welcomeMessage();
     Scanner inputResponse=new Scanner(System.in);
@@ -199,7 +216,8 @@ public class AddressBook{
       System.out.println("3. Delete Record");
       System.out.println("4. Person Details");
       System.out.println("5. All Records ");
-      System.out.println("6. exit ");
+      System.out.println("6. Sort By First Name ");
+      System.out.println("7. exit ");
 
       System.out.print("Choose Your Option: ");
       int response = inputResponse.nextInt();
@@ -223,6 +241,9 @@ public class AddressBook{
               AddressBook.showAllRecords();
               break;
         case 6:
+              AddressBook.sortByFirstName();
+              break;    
+        case 7:
               inputResponse.close();
               System.exit(0);
               break;  
@@ -275,9 +296,7 @@ class Person{
   public String lastName(){
        return this.lastName;
    }   
-
 }
-
 
 class Address{
   private String address, city, state, zip;
@@ -294,6 +313,12 @@ class Address{
   public String getAddress(){
          return this.toString();
   }     
+}
+
+class FirstNameComparator implements Comparator<AddressBook>{
+  public int compare(AddressBook record1, AddressBook record2){
+    return record1.getPerson().firstName().compareTo(record2.getPerson().firstName());
+  }
 }
 
 
