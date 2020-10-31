@@ -16,7 +16,7 @@ public class AddressBook{
       System.out.println(" Welcome to Address Book--The time is "+LocalTime.now());
     }
      
-    public void addPerson(){
+      public void addPerson(){
            System.out.print("Enter First Name: ");
            String firstName = nameSc.nextLine();
            System.out.print("Enter Last Name: ");
@@ -85,6 +85,19 @@ public class AddressBook{
            }
       }
   }
+
+  public static void personDetails(){
+    Scanner scObj = new Scanner(System.in);
+    System.out.println("Enter First Name: ");
+    String firstName=scObj.nextLine();
+    for (AddressBook addressBook : addBookList) {
+        if(addressBook.getPerson().firstName().equals(firstName)){
+          System.out.println(addressBook.getPerson().getPersonDetails());
+        }
+    }
+
+        
+  }
   
   public static void showAllRecords(){
     System.out.println(" - All records are listed bellow - ");
@@ -115,7 +128,10 @@ public class AddressBook{
               break;
         case 2:
               AddressBook.updateRecord();
-              break;           
+              break;       
+        case 4:
+              AddressBook.personDetails(); 
+              break;    
         case 5:    
               AddressBook.showAllRecords();
               break;
