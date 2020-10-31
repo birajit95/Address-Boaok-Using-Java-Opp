@@ -124,8 +124,11 @@ public class AddressBook{
     Scanner scObj = new Scanner(System.in);
     System.out.print("Enter First Name: ");
     String firstName=scObj.nextLine();
+    boolean recordFound=false;
     for (AddressBook addressBook : addBookList) {
         if(addressBook.getPerson().firstName().equals(firstName)){
+            recordFound=true;
+            System.out.println("\nDetails of "+addressBook.getPerson().getFullName()+"\n");
           try{
             System.out.println(addressBook.getRecordId()+" "+addressBook.getPerson().getPersonDetails());
             }
@@ -134,8 +137,9 @@ public class AddressBook{
             }
         }
     }
-
-        
+    if(!recordFound){
+           System.out.println("Opps! Record Not Found ");
+    }      
   }
   
   public static void showAllRecords(){
@@ -224,12 +228,10 @@ public class AddressBook{
               break;  
         default:
                System.out.println("Sorry! Could not understand. Please choose the correct option!");
-               break;
-               
+               break;             
 
       }
-
-      }
+    }
   }
 }
 
