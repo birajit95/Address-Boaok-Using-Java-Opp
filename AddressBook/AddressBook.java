@@ -11,12 +11,15 @@ public class AddressBook{
 
     private Person person;
     static final ArrayList<AddressBook> addBookList = new ArrayList<>();
+    private int recordId;
+    private static int recordCounter=100;
 
+  
     public static void welcomeMessage(){
       System.out.println(" Welcome to Address Book--The time is "+LocalTime.now());
     }
      
-      public void addPerson(){
+    public void addPerson(){
            System.out.print("Enter First Name: ");
            String firstName = nameSc.nextLine();
            System.out.print("Enter Last Name: ");
@@ -26,9 +29,12 @@ public class AddressBook{
            this.person=personObj;
       }
     
-      public Person getPerson(){
+    public Person getPerson(){
          return this.person;
       }
+    public int getRecordId(){
+      return this.recordId;
+    }  
       
     public void addPhoneNumber(Person personObj){
       System.out.print("Enter Phone Number: ");
@@ -57,8 +63,10 @@ public class AddressBook{
 
     
   public void addRecord(Scanner inputResponse){
-   
+    
     this.addPerson();
+    this.recordId=AddressBook.recordCounter;
+    AddressBook.recordCounter++;
 
     System.out.print("Want to skip for now? Y/N : ");
     String skipStatus = inputResponse.next();
@@ -69,6 +77,7 @@ public class AddressBook{
       this.addAddress(personObj);
     }
     addBookList.add(this);
+
   }
 
   public static void updateRecord(){
@@ -86,6 +95,7 @@ public class AddressBook{
       }
   }
 
+ 
   public static void personDetails(){
     Scanner scObj = new Scanner(System.in);
     System.out.println("Enter First Name: ");
@@ -93,10 +103,10 @@ public class AddressBook{
     for (AddressBook addressBook : addBookList) {
         if(addressBook.getPerson().firstName().equals(firstName)){
           try{
-            System.out.println(addressBook.getPerson().getPersonDetails());
+            System.out.println(addressBook.getRecordId()+" "+addressBook.getPerson().getPersonDetails());
             }
           catch(NullPointerException e){
-            System.out.println(addressBook.getPerson().getFullName()+" --- "+" --- "+" --- "+" --- "+" --- ");
+            System.out.println(addressBook.getRecordId()+" "+addressBook.getPerson().getFullName()+" --- "+" --- "+" --- "+" --- "+" --- ");
             }
         }
     }
@@ -108,10 +118,10 @@ public class AddressBook{
     System.out.println(" - All records are listed bellow - ");
     for (AddressBook addressBook : addBookList) {
         try{
-        System.out.println(addressBook.getPerson().getPersonDetails());
+        System.out.println(addressBook.getRecordId()+" "+addressBook.getPerson().getPersonDetails());
         }
         catch(NullPointerException e){
-        System.out.println(addressBook.getPerson().getFullName()+" --- "+" --- "+" --- "+" --- "+" --- ");
+        System.out.println(addressBook.getRecordId()+" "+addressBook.getPerson().getFullName()+" --- "+" --- "+" --- "+" --- "+" --- ");
         }
     }
   }
