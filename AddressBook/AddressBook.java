@@ -5,7 +5,6 @@ import java.util.Scanner;
 import java.util.regex.*;
 import java.util.Collections;
 
-
 public class AddressBook{
     
     Scanner nameSc = new Scanner(System.in);
@@ -204,6 +203,12 @@ public class AddressBook{
     System.out.println("\n----List Sorted by Last Name-----\n");
     AddressBook.showAllRecords();
   }
+
+  public static void sortById(){
+    Collections.sort(addBookList, new RecordIdComparator());
+    System.out.println("\n----List Sorted by Record Id-----\n");
+    AddressBook.showAllRecords();
+  }
    public static void main(String []args){
     welcomeMessage();
     Scanner inputResponse=new Scanner(System.in);
@@ -216,7 +221,8 @@ public class AddressBook{
       System.out.println("5. All Records ");
       System.out.println("6. Sort By First Name ");
       System.out.println("7. Sort By Last Name ");
-      System.out.println("8. exit ");
+      System.out.println("8. Sort By Record ID");
+      System.out.println("9. exit ");
 
       System.out.print("Choose Your Option: ");
       int response = inputResponse.nextInt();
@@ -244,8 +250,11 @@ public class AddressBook{
               break; 
         case 7:
               AddressBook.sortByLastName();
-              break;        
+              break; 
         case 8:
+              AddressBook.sortById();
+              break;       
+        case 9:
               inputResponse.close();
               System.exit(0);
               break;  
@@ -329,6 +338,11 @@ class LastNameComparator implements Comparator<AddressBook>{
   }
 }
 
+class RecordIdComparator implements Comparator<AddressBook>{
+  public int compare(AddressBook record1, AddressBook record2){
+    return record1.getRecordId()-record2.getRecordId();
+  }
+}
 
 
 
