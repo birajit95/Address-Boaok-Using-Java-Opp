@@ -92,7 +92,12 @@ public class AddressBook{
     String firstName=scObj.nextLine();
     for (AddressBook addressBook : addBookList) {
         if(addressBook.getPerson().firstName().equals(firstName)){
-          System.out.println(addressBook.getPerson().getPersonDetails());
+          try{
+            System.out.println(addressBook.getPerson().getPersonDetails());
+            }
+          catch(NullPointerException e){
+            System.out.println(addressBook.getPerson().getFullName()+" --- "+" --- "+" --- "+" --- "+" --- ");
+            }
         }
     }
 
@@ -102,11 +107,15 @@ public class AddressBook{
   public static void showAllRecords(){
     System.out.println(" - All records are listed bellow - ");
     for (AddressBook addressBook : addBookList) {
+        try{
         System.out.println(addressBook.getPerson().getPersonDetails());
+        }
+        catch(NullPointerException e){
+        System.out.println(addressBook.getPerson().getFullName()+" --- "+" --- "+" --- "+" --- "+" --- ");
+        }
     }
   }
- 
-  public static void main(String []args){
+   public static void main(String []args){
     welcomeMessage();
     Scanner inputResponse=new Scanner(System.in);
     while(true){
