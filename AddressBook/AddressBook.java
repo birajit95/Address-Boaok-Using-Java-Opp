@@ -196,15 +196,13 @@ public class AddressBook{
   public static void sortByFirstName(){
     Collections.sort(addBookList, new FirstNameComparator());
     System.out.println("\n----List Sorted by First Name-----\n");
-    for (AddressBook addressBook : addBookList) {
-      try{
-      System.out.println(addressBook.getRecordId()+" "+addressBook.getPerson().getPersonDetails());
-      }
-      catch(NullPointerException e){
-      System.out.println(addressBook.getRecordId()+" "+addressBook.getPerson().getFullName()+" --- "+" --- "+" --- "+" --- "+" --- ");
-      }
-  }
+    AddressBook.showAllRecords();
 
+  }
+  public static void sortByLastName(){
+    Collections.sort(addBookList, new LastNameComparator());
+    System.out.println("\n----List Sorted by Last Name-----\n");
+    AddressBook.showAllRecords();
   }
    public static void main(String []args){
     welcomeMessage();
@@ -217,7 +215,8 @@ public class AddressBook{
       System.out.println("4. Person Details");
       System.out.println("5. All Records ");
       System.out.println("6. Sort By First Name ");
-      System.out.println("7. exit ");
+      System.out.println("7. Sort By Last Name ");
+      System.out.println("8. exit ");
 
       System.out.print("Choose Your Option: ");
       int response = inputResponse.nextInt();
@@ -242,8 +241,11 @@ public class AddressBook{
               break;
         case 6:
               AddressBook.sortByFirstName();
-              break;    
+              break; 
         case 7:
+              AddressBook.sortByLastName();
+              break;        
+        case 8:
               inputResponse.close();
               System.exit(0);
               break;  
@@ -320,5 +322,13 @@ class FirstNameComparator implements Comparator<AddressBook>{
     return record1.getPerson().firstName().compareTo(record2.getPerson().firstName());
   }
 }
+
+class LastNameComparator implements Comparator<AddressBook>{
+  public int compare(AddressBook record1, AddressBook record2){
+    return record1.getPerson().lastName().compareTo(record2.getPerson().lastName());
+  }
+}
+
+
 
 
