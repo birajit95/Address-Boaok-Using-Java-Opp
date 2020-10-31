@@ -136,6 +136,42 @@ public class AddressBook{
         }
     }
   }
+
+  public static void deleteRecord(){
+       Scanner sc = new Scanner(System.in);
+       System.out.print("Want to delete all records: 1=Yes/2=No:  ");
+       int status=sc.nextInt();
+       if(status==1)
+       {
+        System.out.print("Delete Confirm?: y/n: ");
+        String confirmStatus=sc.next();
+        if(confirmStatus.equals("y")){
+              addBookList.clear();
+              System.out.println("All records has been deleted ! ");
+        }
+       }
+       else if(status==2){
+           System.out.print("Enter the record ID: ");
+           int id=sc.nextInt();
+           for (AddressBook record : addBookList){
+                if(record.getRecordId()==id){
+                    System.out.println(record.getRecordId()+" "+record.getPerson().getFullName()); 
+                    System.out.print("Delete Confirm?: y/n : ");
+                    String confirmStatus=sc.next();
+                    if(confirmStatus.equals("y")){
+                           addBookList.remove(record);
+                           System.out.println(record.getPerson().getFullName()+"'s record has been deleted ! ");
+                           break;
+                    }
+                }
+           }
+         }
+       else{
+         System.out.println("Sorry! Could not understand your response! ");
+         deleteRecord();
+       }  
+       
+  }
    public static void main(String []args){
     welcomeMessage();
     Scanner inputResponse=new Scanner(System.in);
@@ -158,17 +194,24 @@ public class AddressBook{
               break;
         case 2:
               AddressBook.updateRecord();
-              break;       
+              break;
+        case 3:
+              AddressBook.deleteRecord();
+              break;         
         case 4:
               AddressBook.personDetails(); 
               break;    
         case 5:    
               AddressBook.showAllRecords();
               break;
+        case 6:
+              inputResponse.close();
+              System.exit(0);
+              break;  
         default:
-               inputResponse.close();
-               System.exit(0);
+               System.out.println("Sorry! Could not understand. Please choose the correct option!");
                break;
+               
 
       }
 
