@@ -104,19 +104,40 @@ public class AddressBook{
       Scanner inputResponse=new Scanner(System.in);
       System.out.print("Enter the record ID: ");
       int recordId=inputResponse.nextInt();
-      
+      boolean recordFound=false;
       for (AddressBook addressBook : addBookList) {
            if(addressBook.getRecordId()==recordId){
+             recordFound=true;
              System.out.println("Record updation for "+addressBook.getPerson().getFullName());
-             System.out.print("Need to update the name also? 1=Yes/2=No: ");
-             int status=inputResponse.nextInt();
-             if(status==1){
-               addressBook.updatePersonName(addressBook.getPerson());
-             }
-             addressBook.addPhoneNumber(addressBook.getPerson());
-             addressBook.addAddress(addressBook.getPerson());
-             break;
+             System.out.print("1. Update Name \n2. Update Phone Number \n3. Update Address \n4.Update Phone and Addrees \n5.Update All");
+             System.out.print("\nChoose your option: ");
+            
+             class SwitchCase{
+               void selctOption(){
+               int status=inputResponse.nextInt();
+               switch(status){
+                   case 1:addressBook.updatePersonName(addressBook.getPerson());break;
+                   case 2:addressBook.addPhoneNumber(addressBook.getPerson());break;
+                   case 3:addressBook.addAddress(addressBook.getPerson());break;
+                   case 4:addressBook.addPhoneNumber(addressBook.getPerson());
+                          addressBook.addAddress(addressBook.getPerson());break;      
+                   case 5:addressBook.updatePersonName(addressBook.getPerson());
+                          addressBook.addPhoneNumber(addressBook.getPerson());
+                          addressBook.addAddress(addressBook.getPerson());break;
+                   default:
+                           System.out.print("Invalid ! Select again :");
+                           new SwitchCase().selctOption();
+                           break;       
+                          }
+                  }
+              }
+            
+              new SwitchCase().selctOption();
+              break;
            }
+      }
+      if(!recordFound){
+        System.out.println("\nOpps! Record Not Found! ");
       }
   }
 
