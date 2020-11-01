@@ -145,13 +145,18 @@ public class AddressBook{
   
   public static void showAllRecords(){
     System.out.println(" - All records are listed bellow - \n");
+    boolean emptyFlag=true;
     for (AddressBook addressBook : addBookList) {
         try{
+        emptyFlag=false;
         System.out.println(addressBook.getRecordId()+" "+addressBook.getPerson().getPersonDetails());
         }
         catch(NullPointerException e){
         System.out.println(addressBook.getRecordId()+" "+addressBook.getPerson().getFullName()+" --- "+" --- "+" --- "+" --- "+" --- ");
         }
+    }
+    if(emptyFlag){
+      System.out.println(" Address Book is empty! ");
     }
   }
 
