@@ -1,6 +1,5 @@
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.Scanner;
 import java.util.regex.*;
 import java.util.Collections;
@@ -292,83 +291,3 @@ public class AddressBook{
     }
   }
 }
-
-
-class Person{
-  private String firstName, lastName, phoneNumber;
-  private Address address;
- 
-
-  public Person(String firstName, String lastName){
-          this.firstName=firstName;
-          this.lastName=lastName;
-        }
-  public void setAddress(Address address){
-           this.address=address;
-        }
-  public void setPhoneNumber(String phoneNumber){
-        this.phoneNumber=phoneNumber;
-        }
-  public void setName(String firstName, String lastName) {
-             this.firstName=firstName;
-             this.lastName=lastName;
-        }
-  @Override
-  public String toString(){
-        return String.format(this.getFullName()+", "+this.phoneNumber+", "+this.address.getAddress());
-  }
-
-  public String getPersonDetails(){
-        return this.toString();
-  }
-
-  public String getFullName(){
-        return String.format(this.firstName+" "+this.lastName);
-  }
-
-  public String firstName(){
-       return this.firstName;
-    }
-
-  public String lastName(){
-       return this.lastName;
-   }   
-}
-
-class Address{
-  private String address, city, state, zip;
-  public Address(String address, String city, String state, String zip){
-        this.address=address;
-        this.city=city;
-        this.state=state;
-        this.zip=zip;
-       }
-  @Override
-  public String toString(){
-         return String.format(this.address+", "+this.city+", "+this.state+", "+this.zip);
-  }     
-  public String getAddress(){
-         return this.toString();
-  }     
-}
-
-class FirstNameComparator implements Comparator<AddressBook>{
-  public int compare(AddressBook record1, AddressBook record2){
-    return record1.getPerson().firstName().compareTo(record2.getPerson().firstName());
-  }
-}
-
-class LastNameComparator implements Comparator<AddressBook>{
-  public int compare(AddressBook record1, AddressBook record2){
-    return record1.getPerson().lastName().compareTo(record2.getPerson().lastName());
-  }
-}
-
-class RecordIdComparator implements Comparator<AddressBook>{
-  public int compare(AddressBook record1, AddressBook record2){
-    return record1.getRecordId()-record2.getRecordId();
-  }
-}
-
-
-
