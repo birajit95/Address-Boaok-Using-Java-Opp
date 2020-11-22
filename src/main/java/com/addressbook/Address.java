@@ -1,3 +1,5 @@
+package com.addressbook;
+
 public class Address{
     private String address, city, state, zip;
     public Address(String address, String city, String state, String zip){

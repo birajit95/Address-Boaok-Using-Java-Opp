@@ -1,3 +1,5 @@
+package com.addressbook;
+
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -100,11 +102,11 @@ public class AddressBook{
   }
 
   public static void updateRecord(){
-      Scanner inputResponse=new Scanner(System.in);
+      final Scanner inputResponse=new Scanner(System.in);
       System.out.print("Enter the record ID: ");
       int recordId=inputResponse.nextInt();
       boolean recordFound=false;
-      for (AddressBook addressBook : addBookList) {
+      for (final AddressBook addressBook : addBookList) {
            if(addressBook.getRecordId()==recordId){
              recordFound=true;
              System.out.println("Record updation for "+addressBook.getPerson().getFullName());

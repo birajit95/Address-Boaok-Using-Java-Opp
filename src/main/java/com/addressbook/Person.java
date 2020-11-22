@@ -1,3 +1,5 @@
+package com.addressbook;
+
 public class Person{
     private String firstName, lastName, phoneNumber;
     private Address address;
